@@ -1,0 +1,29 @@
+{% include '@GameOfThrones/Default/header.html.twig' %}
+
+<form action="/SetNewRoyaume" method="post">
+
+    <fieldset class="form-group">
+        <legend style="color: red;">Changer le Royaume</legend>
+        <p>ID: {{ personnage.id }}</p><br/>
+        <input type="hidden" name="id" value="{{ personnage.id }}">
+        <input type="hidden" name="change" value="ok">
+        <p>Nom: {{ personnage.nom }}</p>
+        <p>Prénom: {{ personnage.prenom }}</p>
+        <label for="royaume">Nouveau Royaume:</label>
+        <select name="royaume" id="royaume" class="form-control">
+            {% for royaume in royaumes %}
+                <option {% if royaume.id == personnage.royaume.id %}selected {% endif %}value="{{ royaume.id }}">{{ royaume.nom }} - {{ royaume.capitale }}</option>
+            {% endfor %}
+        </select>
+    </fieldset>
+
+    <button type="submit" class="btn btn-success">
+
+        <span class="glyphicon glyphicon-edit"></span>Modifier
+    </button>
+    <a type="submit" class="btn btn-danger" href="/Personnages">
+        <span class="glyphicon glyphicon-remove"></span>Annuler
+    </a>
+
+</form>
+{% include '@GameOfThrones/Default/footer.html.twig' %}

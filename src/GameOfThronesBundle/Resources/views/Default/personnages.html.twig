@@ -1,0 +1,84 @@
+{% include '@GameOfThrones/Default/header.html.twig' %}
+
+{% if successMsg is defined %}
+    <div class="alert alert-success">
+        <li>Le personnage <b>{{ personnage.nom }}</b> a bien été ajouté.</li>
+    </div>
+{% endif %}
+{% if succesMsgDel is defined %}
+    <div class="alert alert-success">
+        <li>Le personnage <b>{{ personnage.prenom }} {{ personnage.nom }}</b> a bien été supprimé.</li>
+    </div>
+{% endif %}
+{% if successMsgChangeRoyaume is defined %}
+    <div class="alert alert-success">
+        <li>Le personnage <b>{{ personnage.nom }}</b> fait partie du {{ royaume.nom }}</li>
+    </div>
+
+{% endif %}
+
+    {% if personnage is defined %}
+        <h4 style="color:red;">Qui est-ce ?</h4>
+        <hr/>
+
+        <h3>{{ personnage.prenom }} {{ personnage.nom }}
+            {% if personnage.royaume %}
+                <small>{{ personnage.royaume.nom }} (Qui a {{ personnage.royaume.capitale }} pour
+                    capitale)
+                </small>
+            {% endif %}
+            <small>(id: {{ personnage.id }})</small>
+        </h3>
+        <a href="/" class="pull-right">Retour</a>
+
+    {% endif %}
+
+    {% if personnages is defined %}
+        <h4 style="color:red;">Liste des personnages</h4>
+        <hr/>
+
+        {% for personnage in personnages %}
+            <h5><a href="/Personnages/{{ personnage.id }}">{{ personnage.prenom }} {{ personnage.nom }}</a>
+                {% if personnage.royaume %}
+                    <small>{{ personnage.royaume.nom }} (Qui a {{ personnage.royaume.capitale }} pour
+                        capitale)
+                    </small>
+                {% endif %}
+                <small>(id: {{ personnage.id }})</small><br/>
+                {% if personnage.royaume is not empty %}
+                <small>
+                    <form action="/ChangeRoyaume" method="get">
+                        <input type="hidden" name="id" value="{{ personnage.id }}">
+                        <button type="submit" class="btn btn-warning btn-xs">
+                            <span class="glyphicon glyphicon-edit"> </span>
+                            Modifier le royaume
+                        </button>
+                    </form>
+                </small>
+                {% endif %}
+                {% if personnage.royaume is empty %}
+                <small>
+                    <form action="/ChangeRoyaume" method="get">
+                        <input type="hidden" name="id" value="{{ personnage.id }}">
+                        <button type="submit" class="btn btn-success btn-xs">
+                            <span class="glyphicon glyphicon-plus"> </span>
+                            Ajouter un royaume
+                        </button>
+                    </form>
+                </small>
+                {% endif %}
+                <small>
+                    <form action="/DelPersonnage" method="post">
+                        <input type="hidden" name="id" value="{{ personnage.id }}">
+                        <button type="submit" class="btn btn-danger btn-xs">
+                            <span class="glyphicon glyphicon-plus"> </span>
+                            Supprimer
+                        </button>
+                    </form>
+                </small>
+            </h5>
+            <hr>
+        {% endfor %}
+
+    {% endif %}
+    {% include '@GameOfThrones/Default/footer.html.twig' %}

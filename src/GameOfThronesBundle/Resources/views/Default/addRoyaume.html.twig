@@ -1,0 +1,33 @@
+{% include '@GameOfThrones/Default/header.html.twig' %}
+{% if errors is not empty %}
+    <div class="alert alert-danger">
+        {% for error in errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    </div>
+{% endif %}
+<form action="/addRoyaume" method="post">
+
+    <fieldset class="form-group">
+        <legend style="color: red;">Ajouter un royaume</legend>
+        <label for="nom">Nom</label>
+        <input type="text" class="form-control" name="nom" id="nom"
+               placeholder="Nom" value="{{ royaume.nom }}"/>
+        <label for="capitale">Capitale</label>
+        <input type="text" class="form-control" name="capitale" id="capitale"
+               placeholder="Capitale" value="{{ royaume.capitale }}"/>
+        <label for="nbHabitant">Nombre D'habitant</label>
+        <input type="number" class="form-control" name="nbHabitant" id="nbHabitant"
+               placeholder="Nombre d'habitant" value="{{ royaume.nbHabitant }}"/>
+    </fieldset>
+
+    <button type="submit" class="btn btn-success">
+
+        <span class="glyphicon glyphicon-plus"></span>Ajouter le Royaume
+    </button>
+    <a type="submit" class="btn btn-danger" href="/">
+        <span class="glyphicon glyphicon-remove"></span>Annuler
+    </a>
+
+</form>
+{% include '@GameOfThrones/Default/footer.html.twig' %}

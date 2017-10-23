@@ -1,0 +1,51 @@
+{% include '@GameOfThrones/Default/header.html.twig' %}
+
+{% if successMsg is defined %}
+    <div class="alert alert-success">
+        <li>Le royaume <b>{{ royaume.nom }}</b> a bien été ajouté.</li>
+    </div>
+{% endif %}
+{% if succesMsgDel is defined %}
+    <div class="alert alert-success">
+        <li>Le royaume <b>{{ royaume.nom }}</b> a bien été supprimé.</li>
+    </div>
+{% endif %}
+    {% if royaume is defined %}
+        <h4 style="color:red;">Quel est ce Royaume ?</h4>
+        <hr/>
+
+        <h5>{{ royaume.nom }}
+        <small> (Qui a {{ royaume.capitale }} pour
+            capitale)
+        </small>
+        <small>{{ royaume.nbHabitant }} (id: {{ royaume.id }})</small>
+        </h5>
+        <a href="/" class="pull-right">Retour</a>
+
+    {% endif %}
+
+    {% if royaumes is defined %}
+        <h4 style="color:red;">Liste des Royaumes</h4>
+        <hr/>
+
+        {% for royaume in royaumes %}
+            <h5><a href="/Royaumes/{{ royaume.id }}">{{ royaume.nom }}</a>
+                <small> (Qui a {{ royaume.capitale }} pour
+                    capitale)
+                </small>
+                <small>{{ royaume.nbHabitant }} (id: {{ royaume.id }})</small>
+                <small>
+                    <form action="/DelRoyaume" method="post">
+                        <input type="hidden" name="id" value="{{ royaume.id }}">
+                        <button type="submit" class="btn btn-danger btn-xs">
+                            <span class="glyphicon glyphicon-plus"> </span>
+                            Supprimer
+                        </button>
+                    </form>
+                </small>
+            </h5>
+            <hr>
+        {% endfor %}
+
+    {% endif %}
+    {% include '@GameOfThrones/Default/footer.html.twig' %}

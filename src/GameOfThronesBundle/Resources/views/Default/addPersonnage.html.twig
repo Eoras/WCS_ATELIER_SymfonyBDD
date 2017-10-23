@@ -1,0 +1,38 @@
+{% include '@GameOfThrones/Default/header.html.twig' %}
+{% if errors is not empty %}
+    <div class="alert alert-danger">
+        {% for error in errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    </div>
+{% endif %}
+<form action="/addPersonnage" method="post">
+
+    <fieldset class="form-group">
+        <legend style="color: red;">Ajouter un personnage</legend>
+        <label for="nom">Nom</label>
+        <input type="text" class="form-control" name="nom" id="nom"
+               placeholder="Enter le nom" value="{{ personnage.nom }}"/>
+        <label for="prenom">Prenom</label>
+        <input type="text" class="form-control" name="prenom" id="prenom"
+               placeholder="Enter le prénom" value="{{ personnage.prenom }}"/>
+        <label for="sexe">Sexe</label>
+        <select name="sexe" id="sexe" class="form-control">
+            <option {% if personnage.sexe == 'Homme' %}selected {% endif %}value="Homme">Homme</option>
+            <option {% if personnage.sexe == 'Femme' %}selected {% endif %}value="Femme">Femme</option>
+        </select>
+        <label for="bio">Biographie</label>
+        <input type="text" class="form-control" name="bio" id="bio"
+               placeholder="Simple biographie" value="{{ personnage.bio }}"/>
+    </fieldset>
+
+    <button type="submit" class="btn btn-success">
+
+        <span class="glyphicon glyphicon-plus"></span>Ajouter le personnage
+    </button>
+    <a type="submit" class="btn btn-danger" href="/">
+        <span class="glyphicon glyphicon-remove"></span>Annuler
+    </a>
+
+</form>
+{% include '@GameOfThrones/Default/footer.html.twig' %}
